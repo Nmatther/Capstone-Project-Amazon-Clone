@@ -1,8 +1,24 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import { fetchAllProducts } from '../../API';
 import './Home.css';
 import Product from '../Product/Product';
 
 function Home() {
+  const [products, setProducts] = useState([]);
+  const topRow = products.slice(0, 2) || []
+  const middleRow = products.slice(2,5) || []
+  const bottomRow = products.slice(5,6)
+
+  useEffect(() => {
+    async function fetchData() {
+      const  products  = await fetchAllProducts();
+      console.log(products);
+      setProducts(products);
+    }
+    fetchData();
+  }, [])
+
   return (
     <div className="home">
       <div className="home__container">
@@ -13,18 +29,15 @@ function Home() {
         />
 
       <div className="home__row">
-        <Product />
-        <Product />
+        {topRow.map(product => <Product product={product} />)}
       </div>
 
       <div className="home__row">
-        <Product />
-        <Product />
-        <Product />
+      {middleRow.map(product => <Product product={product} />)}
       </div>
 
       <div className="home__row">
-        <Product />
+      {bottomRow.map(product => <Product product={product} />)}
       </div>
 
       </div>

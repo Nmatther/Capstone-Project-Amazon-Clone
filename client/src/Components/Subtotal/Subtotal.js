@@ -1,12 +1,12 @@
 import React from 'react';
 import "./Subtotal.css";
 import { NumericFormat } from 'react-number-format';
-import { useStateValue } from "./StateProvider";
+import { useStateValue } from '../../StateProvider';
 import { getBasketTotal } from '../../reducer';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Subtotal() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [{ basket }, dispatch] = useStateValue();
 
   return (

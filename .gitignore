@@ -35,3 +35,5 @@ Server/node_modules/@types/node/events.d.ts
 Server/creds.json
 client/firebase.js
 Server/node_modules/*
+.vscode
+.DS_Store

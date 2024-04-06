@@ -1,5 +1,5 @@
-const firebase = require('firebase');
-const firebaseui = require('firebaseui');
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1cqVvn8TPJbUpwFebvr6NIQVhrvQOdrM",
@@ -11,9 +11,9 @@ const firebaseConfig = {
     measurementId: "G-5KVNN8R4LR"
   };
 
-  const firebaseApp = firebase.initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
   
   const db = getFirestore();
-  const ui = new firebaseui.auth.AuthUI(firebase.auth());
+  const auth = getAuth(app);
 
-  export { db, ui};
+  export { db, auth};

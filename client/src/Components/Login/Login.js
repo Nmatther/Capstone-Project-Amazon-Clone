@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
-import { auth } from '../../firebase';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import './Login.css'
 
 function Login() {
@@ -10,19 +11,36 @@ function Login() {
 
     const signIn = e => {
         e.preventDefault()
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
 
-        //put fiebase login  here
+        
     }
 
     const register = e => {
         e.preventDefault()
 
-        auth.createUserWithEmailAndPassword(email, password)
-        .then((auth) => {
-            //it succesfully created a new user with email and password
-            console.log(auth);
-        }).catch(error => alert(error.message))
-        
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed up 
+                const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
     }
 
   return (

@@ -3,10 +3,11 @@
     padding: 20px;
     background-color: white;
     height: max-content;
+    overflow: hidden;
   }
   
-  .checkout__ad {
-    width: 90%;
+  .checkout__add {
+    width: 100%;
     margin-bottom: 10px;
   }
   
@@ -14,4 +15,8 @@
     margin-right: 10px;
     padding: 10px;
     border-bottom: 1px solid lightgray;
+  }
+
+  .checkout__left {
+    flex: 1 1;
   }

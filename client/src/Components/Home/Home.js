@@ -3,8 +3,10 @@ import { useState, useEffect } from 'react';
 import { fetchAllProducts } from '../../API';
 import './Home.css';
 import Product from '../Product/Product';
+import Header from '../Header/Header';
 
 function Home() {
+
   const [products, setProducts] = useState([]);
   const topRow = products.slice(0, 2) || []
   const middleRow = products.slice(2,5) || []
@@ -20,7 +22,10 @@ function Home() {
   }, [])
 
   return (
+    <>
+    <Header />
     <div className="home">
+      
       <div className="home__container">
       <img
           className="home__image"
@@ -43,8 +48,8 @@ function Home() {
       </div>
      
     </div>
-  )
-}
+  
+</>)}
 
 export default Home
 

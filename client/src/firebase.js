@@ -1,3 +1,5 @@
+const firebase = require('firebase');
+const firebaseui = require('firebaseui');
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1cqVvn8TPJbUpwFebvr6NIQVhrvQOdrM",
@@ -9,4 +11,9 @@ const firebaseConfig = {
     measurementId: "G-5KVNN8R4LR"
   };
 
+  const firebaseApp = firebase.initializeApp(firebaseConfig);
   
+  const db = getFirestore();
+  const ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+  export { db, ui};

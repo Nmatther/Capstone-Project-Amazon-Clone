@@ -67,3 +67,24 @@
     margin-right: 10px;
     color:white;
 }
+
+a:link {
+    color: lightskyblue;
+    text-decoration: none ;
+  }
+
+  a:-webkit-any-link {
+    color: #0066C0; ;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .header__optionLineTwoButton {
+    color: lightskyblue;
+    text-decoration: underline;
+    background: none ;
+    border: none ;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+}

@@ -1,49 +1,31 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-import { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { doSignInWithEmailAndPassword } from '../../auth';
+import { useAuth } from '../../authContext';
 import './Login.css'
 
-function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const Login = () => {
+    const { userLoggedIn } = useAuth()
+    const  navigate  = useNavigate()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [isSigningIn, setIsSigningIn] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
 
-    const signIn = e => {
+    const onSubmit = async (e) => {
         e.preventDefault()
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-        });
-
-        
-    }
-
-    const register = e => {
-        e.preventDefault()
-
-        const auth = getAuth();
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed up 
-                const user = userCredential.user;
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-            });
+        if(!isSigningIn) {
+            setIsSigningIn(true)
+            await doSignInWithEmailAndPassword(email, password)
+            // doSendEmailVerification()
+        }
     }
 
   return (
+    <>
+    {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
+
+
     <div className='login'>
         <Link to = '/'>
         <img className="login__logo" src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png'/>
@@ -51,24 +33,29 @@ function Login() {
 
         <div className="login__container">
             <h1>Sign-in</h1>
-            <form>
+            <form onSubmit={onSubmit}>
                 <h5>Email</h5>
                 <input type='text' value={email} onChange={e => setEmail(e.target.value)}/>
 
                 <h5>Password</h5>
                 <input type='password' value={password} onChange={e => setPassword(e.target.value)}/>
 
-                <button type='submit' className='login__signInButton' onClick={signIn}>Sign In</button>
+                {errorMessage && ( <span>{errorMessage}</span>)}
+
+                <button type='submit' className='login__signInButton'>Sign In</button>
             </form>
 
             <p>
                 By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use & Sale. Please see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
             </p>
 
-            <button className='login__registerButton' onClick={register}>Create your Amazon Account.</button>
+            <button onClick={() => {navigate('/register')}} className='login__registerButton'>Create your Amazon Account</button>
+
         </div>
     </div>
+    </>
   )
+  
 }
 
 export default Login

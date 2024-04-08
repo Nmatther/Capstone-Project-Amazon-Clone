@@ -2,11 +2,15 @@ import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import './Header.css'
 import { ShoppingBasket } from '@mui/icons-material';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useStateValue } from '../../StateProvider';
+import { useAuth } from '../../authContext';
+import { doSignOut } from '../../auth';
 
 function Header() {
     const [{ basket, user }, dispatch] = useStateValue();
+    const { userLoggedIn } = useAuth()
+    const navigate = useNavigate()
 
   return (
         <div className="header">
@@ -19,16 +23,37 @@ function Header() {
             </div>
 
             <div className="header__nav">
-                <Link to="/login">
-                    <div className="header__option">
-                        <span className="header__optionLineOne">
-                            Hello Guest,
-                        </span>
-                        <span className="header__optionLineTwo">
-                            Sign In
-                        </span>
-                    </div>
-                </Link>
+                <nav>
+                    {
+                        userLoggedIn 
+                        ?
+                        <>
+                        <div className="header__option">
+                            <span className="header__optionLineOne">
+                                Welcome,
+                            </span>
+                            
+                            <button onClick={() => { doSignOut().then(() => { navigate('/login')})}} className='header__optionLineTwoButton'>Logout</button>
+                        </div>
+                        </>
+                        :
+                        <>
+
+                        <div className="header__option">
+                            <span className="header__optionLineOne">
+                                Hello Guest,
+                            </span>
+                            
+                            <span className="header__optionLineTwo">
+                               <Link to="/login"> Sign In</Link>
+                            </span>
+                            
+                        </div>
+                        </>
+
+                    }
+                </nav>
+
                 <div className="header__option">
                 <span className="header__optionLineOne">
                         Returns

@@ -13,13 +13,21 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('')
 
     const onSubmit = async (e) => {
-        e.preventDefault()
-        if(!isSigningIn) {
-            setIsSigningIn(true)
-            await doSignInWithEmailAndPassword(email, password)
-            // doSendEmailVerification()
+        e.preventDefault();
+    
+        try {
+            if (!isSigningIn) {
+                setIsSigningIn(true);
+                await doSignInWithEmailAndPassword(email, password);
+                // doSendEmailVerification()
+            }
+        } catch (error) {
+            console.error("An error occurred during sign-in:", error.message);
+             setErrorMessage(error.message); 
+        } finally {
+            setIsSigningIn(false); // Reset the signing in state
         }
-    }
+    };
 
   return (
     <>

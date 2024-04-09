@@ -17,13 +17,20 @@ const Register = () => {
 
 
     const onSubmit = async (e) => {
-        e.preventDefault()
-        if(!isRegistering) {
-            setIsRegistering(true)
-            await doCreateUserWithEmailAndPassword(email, password)
-        
+        e.preventDefault();
+    
+        try {
+            if (!isRegistering) {
+                setIsRegistering(true);
+                await doCreateUserWithEmailAndPassword(email, password);
+            }
+        } catch (error) {
+            console.error("An error occurred during registration:", error);
+             setErrorMessage(error.message); 
+        } finally {
+            setIsRegistering(false); // Reset the registration state
         }
-    }
+    };
 
   return (
     <>

@@ -43,10 +43,8 @@ function Header() {
                             <span className="header__optionLineOne">
                                 Hello Guest,
                             </span>
-                            
-                            <span className="header__optionLineTwo">
-                               <Link to="/login"> Sign In</Link>
-                            </span>
+                            <button onClick={() => {{navigate('/login')}}} className='header__optionLineTwoButton'>Sign In</button>
+                           
                             
                         </div>
                         </>

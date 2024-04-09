@@ -44,6 +44,13 @@
     font-weight: 800;
 }
 
+.header__optionLineTwoSignIn {
+    text-decoration: none;
+    color: lightblue;
+    font-size: 13px;
+    font-weight: 800;
+}
+
 .header__optionBasket {
     display: flex;
     align-items: center;
@@ -68,18 +75,8 @@
     color:white;
 }
 
-a:link {
-    color: lightskyblue;
-    text-decoration: none ;
-  }
-
-  a:-webkit-any-link {
-    color: #0066C0; ;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-
   .header__optionLineTwoButton {
+    
     color: lightskyblue;
     text-decoration: underline;
     background: none ;
